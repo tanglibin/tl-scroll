@@ -9,23 +9,40 @@ const isIE = function(){
 
 
 /**是否显示滚动条 */
-const isShowScroll = function(viewWidth, viewHeight, boxWidth, boxHeight, barSize){
-    let diffY = viewHeight - boxHeight;
-    let diffX = viewWidth - boxWidth;
+const isShowScroll = function(view, box, barSize, overflowX, overflowY){
     let showY = false;
     let showX = false;
 
-    if(diffY > 0){
-        if(diffX > 0 || Math.abs(diffX) < barSize){
-            showX = true;
-        }
-        showY = true;
+    if(!overflowX && !overflowY){
+        return {showX, showY};
     }
-    else if(diffX > 0){
-        if(Math.abs(diffY) < barSize){
+
+    let viewWidth = view.clientWidth;
+    let viewHeight = view.clientHeight;
+    let boxWidth = box.clientWidth;
+    let boxHeight = box.clientHeight;
+    let diffY = viewHeight - boxHeight;
+    let diffX = viewWidth - boxWidth;
+
+    if(overflowX && overflowY){
+        if(diffY > 0){
+            if(diffX > 0 || Math.abs(diffX) < barSize){
+                showX = true;
+            }
             showY = true;
         }
-        showX = true;
+        else if(diffX > 0){
+            if(Math.abs(diffY) < barSize){
+                showY = true;
+            }
+            showX = true;
+        }
+    }else {
+        if(overflowX){
+            showX = diffX > 0;
+        }else{
+            showY = diffY > 0;
+        }
     }
     return {showX, showY};
 }

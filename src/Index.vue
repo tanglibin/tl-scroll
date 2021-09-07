@@ -22,7 +22,18 @@ export default {
     name: 'TlScroll',
     props: {
         // 滚动条尺寸
-        size: { type: Number, default: 6 },
+        size: { 
+            type: Number, 
+            default: 6 
+        },
+        overflowX: { //是否显示横向滚动条
+            type: Boolean,
+            default: true
+        },
+        overflowY: { //是否显示竖向滚动条
+            type: Boolean,
+            default: true
+        }
     },
     data(){
         return {
@@ -70,7 +81,7 @@ export default {
                     const elStyle = el.currentStyle ? el.currentStyle : document.defaultView.getComputedStyle(el, null);
                     if (width !== elStyle.width || height !== elStyle.height) {
                         let type = Number(/tl__scroll/.test(el.className));
-                        binding.value({el, width, height, type});
+                        binding.value({el, width: elStyle.width, height: elStyle.height, type});
                     }
                     width = elStyle.width;
                     height = elStyle.height;
@@ -87,9 +98,9 @@ export default {
         /**更新滚动条位置 */
         updated(bindingData){
             let {box, view} = this.$refs;
-            let {size} = this;
+            let {size, overflowX, overflowY} = this;
             // 获取是否显示滚动条
-            let {showX, showY} = isShowScroll(view.clientWidth, view.clientHeight, box.clientWidth, box.clientHeight, size);
+            let {showX, showY} = isShowScroll(view, box, size, overflowX, overflowY);
             this.showX = showX;
             this.showY = showY;
             box.style.padding = `0 ${showY ? size : 0}px ${showX ? size : 0}px 0`;
