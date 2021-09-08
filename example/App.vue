@@ -4,8 +4,8 @@
     <button @click="height-=100">wrap高度-</button>
     <button @click="m1">增加内容</button>
     <button @click="m2">减少内容</button>
-    <tl-scroll style="width:300px; border:1px solid #f00" :style="{height: height+'px'}" @updated="updated">
-        <p v-for="(item, i) in list" :key="i">{{item}}</p>
+    <tl-scroll style="width:300px; border:1px solid #f00" :style="{height: height+'px'}" @updated="updated" :overflow-x="true">
+        <p v-for="(item, i) in list" :key="i" style="white-space: nowrap;">{{item}}</p>
     </tl-scroll>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
                 '昨夜闲潭梦落花，可怜春半不还家。',
                 '江水流春去欲尽，江潭落月复西斜。',
                 '斜月沉沉藏海雾，碣石潇湘无限路。',
-                '不知乘月几人归，落月摇情满江树。',
+                '不知乘月几人归，落月摇情满江树。落月摇情满江树。落月摇情满江树。',
             ]
         }
     },

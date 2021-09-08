@@ -8,10 +8,11 @@ tl-scroll
 > 还未在移动端进行过测试)
 
 ## Feature:
-* [x] 支持设置滚动条大小
-* [x] 支持根据内容变动自动显示隐藏滚动条
-* [x] 提供相应滚动事件回调
-* [x] 支持动态设定滚动位置
+* [√] 支持设置滚动条大小
+* [√] 支持根据内容变动自动显示隐藏滚动条
+* [√] 提供相应滚动事件回调
+* [√] 支持动态设定滚动位置
+
 
 
 ## tl-scroll 是干嘛的
@@ -84,11 +85,42 @@ tl-scroll
 
   设置滚动条的大小
 
+### overflow-x
+* 类型`Boolean`
+
+* 默认值`true`
+
+* 用法:
+
+  ```html
+    <tl-scroll :overflow-x="true">
+       <!-- 你的内容 -->
+    </tl-scroll>
+  ```
+
+  是否显示横向滚动条
+
+### overflow-y
+* 类型`Boolean`
+
+* 默认值`true`
+
+* 用法:
+
+  ```html
+    <tl-scroll :overflow-y="true">
+       <!-- 你的内容 -->
+    </tl-scroll>
+  ```
+
+  是否显示纵向滚动条
 
 ## 事件
 
-### updated
-{el, width, height, type}
+### updated({el, width, height, type})
+
+* 在滚动容器大小或内容区大小改变时调用。
+
 * 参数`el`
 
   > 变动的元素。
@@ -105,8 +137,7 @@ tl-scroll
 
   > 变动类型，0：内容部分变动， 1：滚动容器变动。
 
-* 说明
-  在滚动容器大小或内容区大小改变时调用。
+
 
   ```html
   <tl-scroll @updated="updated">
@@ -114,22 +145,22 @@ tl-scroll
   </tl-scroll>
   ```
 
-### scroll
-skin.scrollTop, skin, 0
+### scroll(value, dom, type)
+
+* 监听滚动条滚动事件。
+
 * 参数`value`
 
- > scrollTop 或 scrollLeft
+  > scrollTop 或 scrollLeft
 
 * 参数`dom`
 
- > 当前元素
+  > 当前元素
 
 * 参数`type`
 
- > 0: 竖向滚动； 1：横向滚动
+  > 0: 竖向滚动； 1：横向滚动
 
-* 说明
-  监听滚动条滚动事件。
 
   ```html
   <tl-scroll @scroll="scroll">
@@ -146,3 +177,12 @@ skin.scrollTop, skin, 0
 
 * 说明
   滚动至指定位置。通过ref进行调用
+
+
+
+## 更新日志:
+
+* [ 1.1.1 ]  新增 overflow-y 和 overflow-x 属性
+* [ 1.1.0 ]  修复 updated 事件中参数数值错误问题
+* [ 1.0.1 ]  基础正式版
+* [ 1.0.0 ]  测试版本
