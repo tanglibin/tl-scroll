@@ -115,6 +115,20 @@ tl-scroll
 
   是否显示纵向滚动条
 
+### z-index
+* 类型`Number`
+
+* 用法:
+
+  ```html
+    <tl-scroll :z-index="9">
+       <!-- 你的内容 -->
+    </tl-scroll>
+  ```
+
+  滚动条堆叠顺序。`仅控制滚动条，若整个滚动容器需要，可自行在容器上通过样式控制`
+
+
 ## 事件
 
 ### updated({el, width, height, type})
@@ -170,18 +184,19 @@ tl-scroll
 
 
 ## 方法
-
-### scroll(x, y)
-### scrollLeft(x)
-### scrollTop(y)
-
 * 说明
   滚动至指定位置。通过ref进行调用
-
+### scroll(x=0, y=0)
+* 根据所传x、y轴数值，滚动至指定位置
+### scrollLeft(x)
+* 横向滚动条滚动至指定位置，无参时则返回当前所在的滚动位置
+### scrollTop(y)
+* 纵向滚动条滚动至指定位置，无参时则返回当前所在的滚动位置
 
 
 ## 更新日志:
 
+* [ 1.1.2 ]  新增 z-index 属性；scrollLeft、scrollTop 方法支持获取当前滚动位置
 * [ 1.1.1 ]  新增 overflow-y 和 overflow-x 属性
 * [ 1.1.0 ]  修复 updated 事件中参数数值错误问题
 * [ 1.0.1 ]  基础正式版

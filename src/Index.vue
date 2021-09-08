@@ -7,10 +7,10 @@
                 </div>
             </div>
         </div>
-        <div class="tl_scroll__bar vertical" ref="bar_y" @mousedown="handleClickTrack($event, 0)" :style="{'width': size+'px', 'bottom': (showX ? size : 0)+'px'}">
+        <div class="tl_scroll__bar vertical" ref="bar_y" @mousedown="handleClickTrack($event, 0)" :style="{'width': size+'px', 'bottom': (showX ? size : 0)+'px', 'z-index': zIndex}">
             <div class="tl_scroll__thumb" ref="thumb_y" @mousedown="handleDragThumb($event, 'y')" :style="{'height': barHeight+'px', 'top': thumbY+'px'}"></div>
         </div>
-        <div class="tl_scroll__bar horizontal" ref="bar_x" @mousedown="handleClickTrack($event, 1)" :style="{'height': size+'px', 'right': (showY ? size : 0)+'px'}">
+        <div class="tl_scroll__bar horizontal" ref="bar_x" @mousedown="handleClickTrack($event, 1)" :style="{'height': size+'px', 'right': (showY ? size : 0)+'px', 'z-index': zIndex}">
             <div class="tl_scroll__thumb" ref="thumb_x" @mousedown="handleDragThumb($event, 'x')" :style="{'width': barWidth+'px', 'left': thumbX+'px'}"></div>
         </div>
     </section>
@@ -33,6 +33,9 @@ export default {
         overflowY: { //是否显示竖向滚动条
             type: Boolean,
             default: true
+        },
+        zIndex: { //滚动条堆叠顺序
+            type: Number
         }
     },
     data(){
@@ -245,18 +248,24 @@ export default {
         },
 
         /**暴露给外部用 */
-        scroll(x, y){
+        scroll(x=0, y=0){
             this.scrollTop(y);
             this.scrollLeft(x);
         },
 
         /**暴露给外部用 */
         scrollLeft(x){
+            if(x === undefined){
+                return this.$refs.skin.scrollLeft;
+            }
             this.$refs.skin.scrollLeft = x;
         },
 
         /**暴露给外部用 */
         scrollTop(y){
+            if(y === undefined){
+                return this.$refs.skin.scrollTop;
+            }
             this.$refs.skin.scrollTop = y;
         }
     }
