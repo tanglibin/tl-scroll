@@ -196,6 +196,7 @@ tl-scroll
 
 ## 更新日志:
 
+* [ 1.1.3 ]  updated事件添加防抖处理
 * [ 1.1.2 ]  新增 z-index 属性；scrollLeft、scrollTop 方法支持获取当前滚动位置
 * [ 1.1.1 ]  新增 overflow-y 和 overflow-x 属性
 * [ 1.1.0 ]  修复 updated 事件中参数数值错误问题

@@ -1,8 +1,8 @@
 <template>
-    <section :class="['tl__scroll', boxClass]" ref="box" v-resize="updated">
+    <section :class="['tl__scroll', boxClass]" ref="box" v-resize="debounce(updated, 20)">
         <div class="tl_scroll__wrap" ref="wrap">
             <div class="tl_scroll__skin" ref="skin" @scroll="handleScroll">
-                <div class="tl_scroll__view" ref="view" v-resize="updated">
+                <div class="tl_scroll__view" ref="view" v-resize="debounce(updated, 20)">
                     <slot />
                 </div>
             </div>
@@ -97,18 +97,32 @@ export default {
         }
     },
     methods: {
-
+        /**方法防抖 */
+        debounce(fun, delay) {
+            let timeout;
+            return function() {
+                let contx = this; 
+                let args = arguments;
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(() => {
+                    fun.apply(contx, args);
+                }, delay);
+            };
+        },
         /**更新滚动条位置 */
         updated(bindingData){
-            let {box, view} = this.$refs;
+            let {box, view, skin} = this.$refs;
             let {size, overflowX, overflowY} = this;
             // 获取是否显示滚动条
+            skin.removeAttribute('style');
             let {showX, showY} = isShowScroll(view, box, size, overflowX, overflowY);
             this.showX = showX;
             this.showY = showY;
             box.style.padding = `0 ${showY ? size : 0}px ${showX ? size : 0}px 0`;
 
-            let {wrap, skin} = this.$refs;
+            let {wrap} = this.$refs;
 
             skin.style.height = wrap.clientHeight + 17 + 'px';
             skin.style.width = wrap.clientWidth + 17 + 'px';
