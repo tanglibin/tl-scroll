@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import TlScroll from '../src/Index.vue'
+import TlScroll from '../src/index'
 export default {
     components:{
       TlScroll
