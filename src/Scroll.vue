@@ -296,7 +296,7 @@ export default {
 .tl_scroll__wrap{width: 100%;height: 100%;}
 .tl_scroll__skin{overflow: scroll;}
 .tl_scroll__skin::-webkit-scrollbar {width: 17px;height: 17px;}
-.tl_scroll__view{display: inline-block;}
+.tl_scroll__view{display: inline-block;min-width: 100%;}
 .tl_scroll__bar{
     &{position: absolute;display: none;/*background-color: #F5F5F5;*/}
     &.vertical{
