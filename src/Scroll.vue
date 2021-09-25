@@ -2,7 +2,7 @@
     <section :class="['tl__scroll', boxClass]" ref="box" v-resize="debounce(updated, 20)">
         <div class="tl_scroll__wrap" ref="wrap">
             <div class="tl_scroll__skin" ref="skin" @scroll="handleScroll">
-                <div class="tl_scroll__view" ref="view" v-resize="debounce(updated, 20)">
+                <div class="tl_scroll__view" :style="{'width': overflowX ? 'auto' : '100%'}" ref="view" v-resize="debounce(updated, 20)">
                     <slot />
                 </div>
             </div>
