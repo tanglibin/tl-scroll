@@ -81,7 +81,7 @@ export default {
             bind: function(el, binding) {
                 let width = '', height = '';
                 function get() {
-                    const elStyle = el.currentStyle ? el.currentStyle : document.defaultView.getComputedStyle(el, null);
+                    const elStyle = (document.defaultView && document.defaultView.getComputedStyle) ? document.defaultView.getComputedStyle(el, null) :el.currentStyle;
                     if (width !== elStyle.width || height !== elStyle.height) {
                         let type = Number(/tl__scroll/.test(el.className));
                         binding.value({el, width: elStyle.width, height: elStyle.height, type});
@@ -115,6 +115,9 @@ export default {
         updated(bindingData){
             let {box, view, skin} = this.$refs;
             let {size, overflowX, overflowY} = this;
+            let oldSLeft = skin.scrollLeft;
+            let oldSTop = skin.scrollTop;
+
             // 获取是否显示滚动条
             skin.removeAttribute('style');
             let {showX, showY} = isShowScroll(view, box, size, overflowX, overflowY);
@@ -126,6 +129,10 @@ export default {
 
             skin.style.height = wrap.clientHeight + 17 + 'px';
             skin.style.width = wrap.clientWidth + 17 + 'px';
+
+            // 还原滚动位置
+            oldSLeft && (skin.scrollLeft = oldSLeft);
+            oldSTop && (skin.scrollTop = oldSTop);
 
             // 横向滚动条
             if(showX){
